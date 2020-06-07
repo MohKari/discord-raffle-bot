@@ -1,6 +1,26 @@
 <?php
 
+Namespace Helpers;
+
 class Helper{
+
+    /////////
+    // NEW //
+    /////////
+
+    public static function getRaffle()
+    {
+        return $GLOBALS["raffle"];
+    }
+
+    public static function getObject()
+    {
+        return $GLOBALS["object"];
+    }
+
+    /////////////
+    // CURRENT //
+    /////////////
 
     /**
      * Get roles of user
@@ -12,7 +32,7 @@ class Helper{
 
         $roles = [];
 
-        // loop through 
+        // loop through
         foreach($data->author->roles as $role){
             $roles[] = $role->name;
         }
@@ -63,7 +83,7 @@ class Helper{
      * @return [type]          [description]
      */
     public static function getUsers($discord)
-    {   
+    {
 
         // username => roles []
         $users = [];
@@ -72,8 +92,8 @@ class Helper{
         foreach($discord->guilds as $guild){
             foreach($guild->members as $member){
                     // username of member
-                    $username = $member->username;
-                    $users[$username] = [];
+                $username = $member->username;
+                $users[$username] = [];
 
                 foreach($member->roles as $role){
                     // all roles of member

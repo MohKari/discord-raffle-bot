@@ -1,0 +1,49 @@
+<?php
+
+// composer autoloader
+include __DIR__.'/autoload.php';
+
+use Classes\Raffle;
+use Commands\Commands;
+use Discord\DiscordCommandClient;
+use Helpers\Helper;
+
+// make new discord command object
+$discord = new DiscordCommandClient([
+    'token' => en("BOT_TOKEN"),
+    'prefix' => en("COMMAND_PREFIX"),
+]);
+
+// becomes discord object
+$object;
+
+// create raffle here so that its a global object...
+$raffle = new Raffle();
+
+/**
+ * when bot is "started", this methods runs.
+ * make the discord object a global property that can be accessed from anywhere.
+ */
+$discord->on('ready', function ($discord) {
+
+    // set $discord as global property that we can access it from other commands.
+    $GLOBALS["object"] = $discord;
+
+    echo "Bot is ready.", PHP_EOL;
+
+    // optionally output all text to bot output
+    // $discord->on('message', function ($message) {
+    //     echo "Recieved a message from {$message->author->username}: {$message->content}", PHP_EOL;
+    // });
+
+});
+
+//////////////
+// COMMANDS //
+//////////////
+
+$commands = new Commands($discord);
+$commands->load();
+
+// run bot...
+$discord->run();
