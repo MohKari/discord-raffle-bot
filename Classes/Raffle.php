@@ -104,6 +104,7 @@ class Raffle{
 
 		//
 		$tally = array_count_values($this->data);
+		ksort($tally);
 
 		//
 		$output .= "```";
