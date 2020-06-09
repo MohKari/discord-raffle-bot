@@ -10,7 +10,7 @@ class DrawFromRaffle extends BaseCommand{
     public $key_word = "draw";
 
     public $options = [
-        "description" => "Draw one \"Ticket\" from raffle.",
+        "description" => "Draw one \"Ticket\" from raffle. A user may not win more than once.",
         "usage" => "",
     ];
 
@@ -18,20 +18,16 @@ class DrawFromRaffle extends BaseCommand{
 
         return function($data, $params){
 
-            // decode what is sent in...
-            $data = json_decode($data);
-
-            // only allow raffle-admins to use this command...
-            $author_roles = Helper::getRoles($data);
-            if(!in_array(en("ADMIN_ROLE"), $author_roles)){
+            // if author is not admin, eep!
+            if(!Helper::isAuthorAdmin($data)){
                 return "Not permitted to perform this command.";
             }
 
             // get and clear raffle
             $raffle = Helper::getRaffle();
-            $winner = $raffle->draw();
+            $member = $raffle->draw();
 
-            return $winner;
+            return "The Winner Is.... " . $member->name;
 
         };
 

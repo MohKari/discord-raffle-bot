@@ -18,12 +18,8 @@ class ShowRaffle extends BaseCommand{
 
         return function($data, $params){
 
-            // decode what is sent in...
-            $data = json_decode($data);
-
-            // only allow raffle-admins to use this command...
-            $author_roles = Helper::getRoles($data);
-            if(!in_array(en("ADMIN_ROLE"), $author_roles)){
+            // if author is not admin, eep!
+            if(!Helper::isAuthorAdmin($data)){
                 return "Not permitted to perform this command.";
             }
 

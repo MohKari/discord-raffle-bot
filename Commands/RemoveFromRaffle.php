@@ -11,37 +11,51 @@ class RemoveFromRaffle extends BaseCommand{
 
     public $options = [
         "description" => "Remove user(s) from raffle.",
-        "usage" => "[@users]",
+        "usage" => "@user(s)",
     ];
 
     public function command(){
 
         return function($data, $params){
 
-            // decode what is sent in...
-            $data = json_decode($data);
-
-            // only allow raffle-admins to use this command...
-            $author_roles = Helper::getRoles($data);
-            if(!in_array(en("ADMIN_ROLE"), $author_roles)){
+            // if author is not admin, eep!
+            if(!Helper::isAuthorAdmin($data)){
                 return "Not permitted to perform this command.";
             }
 
-            // get mentioned roles
-            $mentioned_users = Helper::getMentionedUsers($data);
-            if(empty($mentioned_users)){
-                return "Need at least one user to be supplied.";
+            // get id's of users in message
+            $ids = Helper::GetMemberIdsFromMessage($data);
+            if(empty($ids)){
+                return "At least one user must be mentioned.";
             }
 
-            // get and clear raffle
+            // names of users that have been removed...
+            $removed = [];
+
+            // get all members
+            $members = Helper::getAllMembers();
+
+            // get raffle object
             $raffle = Helper::getRaffle();
 
-            // loop through each mention...
-            foreach($mentioned_users as $user_name){
-                $raffle->remove($user_name);
+            // remove mentions
+            foreach($ids as $id){
+
+                foreach($members as $member){
+
+                    if($id == $member->id){
+                        $raffle->remove($member);
+                        $removed[] = $member->name;
+                        break;
+                    }
+
+                }
+
             }
 
-            return $raffle->showList();
+            $message = "I've just removed \"" . implode(", ", $removed) . "\" from the raffle.";
+
+            return $message;
 
         };
 

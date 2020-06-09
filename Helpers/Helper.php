@@ -2,7 +2,90 @@
 
 Namespace Helpers;
 
+use Classes\Member;
+use Discord\Parts\Channel\Message;
+
 class Helper{
+
+    /**
+     * Is author of supplied message an admin.
+     * @param  Message $message
+     * @return boolean
+     */
+    public static function isAuthorAdmin(Message $message)
+    {
+
+        // loop through all roles of the author of the message...
+        foreach($message->author->roles as $role){
+
+            // if the name of the role matches the admin role...
+            if($role->name == en("ADMIN_ROLE")){
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Extract the name of all roles supplied within the message
+     * @param  Message $message [description]
+     * @return [type]           [description]
+     */
+    public static function getRoleNamesFromMessage(Message $message)
+    {
+
+        $roles = [];
+
+        foreach($message->mention_roles as $role){
+            $roles[] = $role->name;
+        }
+
+        return $roles;
+
+    }
+
+    public static function getMemberIdsFromMessage(Message $message){
+
+        $ids = [];
+
+        foreach($message->mentions as $member){
+            $ids[] = $member->id;
+        }
+
+        return $ids;
+
+    }
+
+    /**
+     * Get all members from server
+     * @return
+     */
+    public static function getAllMembers()
+    {
+
+        $members = [];
+
+        $object = self::getObject();
+
+        // loop through every "server"?
+        foreach($object->guilds as $guild){
+
+            // loop through every member
+            foreach($guild->members as $member){
+
+                // make new member object
+                $new_member = new Member($member);
+                $members[] = $new_member;
+
+            }
+        }
+
+        return $members;
+
+    }
 
     /////////
     // NEW //
@@ -49,13 +132,6 @@ class Helper{
     public static function getMentionedRoles($data)
     {
 
-        $roles = [];
-
-        foreach($data->mention_roles as $role){
-            $roles[$role->id] = $role->name;
-        }
-
-        return $roles;
 
     }
 
@@ -105,25 +181,6 @@ class Helper{
         }
 
         return $users;
-
-    }
-
-    // return list of names in list
-    public static function getList()
-    {
-
-        $list = $GLOBALS["list"];
-
-        $output = "";
-        foreach($list as $item){
-            $output .= PHP_EOL . "> " . $item;
-        }
-
-        if($output == ""){
-            $output = "no raffle started.";
-        }
-
-        return $output;
 
     }
 
