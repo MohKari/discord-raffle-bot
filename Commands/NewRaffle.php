@@ -10,7 +10,7 @@ class NewRaffle extends BaseCommand{
     public $key_word = "new";
 
     public $options = [
-        "description" => "Creates a new raffle. Members with @role(s) have 1 ticket.",
+        "description" => "Creates a new raffle. Members that have all mentioned @role(s) gain 1 ticket.",
         "usage" => "@role(s)",
     ];
 
@@ -36,21 +36,30 @@ class NewRaffle extends BaseCommand{
             // get all members of server
             $members = Helper::GetAllMembers();
 
-            //////////////////////////////////////////////////
-            // ADD ALL USERS THAT HAVE A MATCHING ROLE ONCE //
-            //////////////////////////////////////////////////
+            /////////////////////////////////////////////
+            // ADD ALL USERS THAT MATCH ALL ROLES ONCE //
+            /////////////////////////////////////////////
 
-            // loop through all mentioned roles
-            foreach($roles as $role){
+            // amount of matches required to be added...
+            $required_matches = count($roles);
 
-                // loop through all users
-                foreach($members as $member){
+            // loop through all users
+            foreach($members as $member){
 
-                    // if member role matches role, try to add it
+                $matches = 0;
+
+                // loop through all mentioned roles
+                foreach($roles as $role){
+
+                    // if member role matches, increase matches
                     if(in_array($role, $member->roles)){
-                        $raffle->addIfNotExist($member);
+                        $matches++;
                     }
 
+                }
+
+                if($matches >= $required_matches){
+                    $raffle->addIfNotExist($member);
                 }
 
             }

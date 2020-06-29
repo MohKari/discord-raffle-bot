@@ -25,7 +25,7 @@ class Raffle{
 	/**
 	 * draw a item randomly.
 	 * and remove any duplicate entries
-	 * @return [type] [description]
+	 * @return string | Member
 	 */
 	public function draw(){
 

@@ -10,7 +10,7 @@ class AddToRaffle extends BaseCommand{
     public $key_word = "add";
 
     public $options = [
-        "description" => "Add X tickets to user(s) and/or users with roles(s).",
+        "description" => "Add X tickets for user(s) | Members that have all mentioned @role(s) gain X ticket.",
         "usage" => "@user(s) / @role(s) X",
     ];
 
@@ -61,14 +61,30 @@ class AddToRaffle extends BaseCommand{
             // ADD MENTIONED ROLES //
             /////////////////////////
 
-            foreach($roles as $role){
-                foreach($members as $member){
+            // amount of matches required to be added...
+            $required_matches = count($roles);
+
+            // loop through all users
+            foreach($members as $member){
+
+                $matches = 0;
+
+                // loop through all mentioned roles
+                foreach($roles as $role){
+
+                    // if member role matches, increase matches
                     if(in_array($role, $member->roles)){
-                        for($i = 0; $i < $count; $i++){
-                            $raffle->add($member);
-                        }
+                        $matches++;
+                    }
+
+                }
+
+                if($matches >= $required_matches){
+                    for($i = 0; $i < $count; $i++){
+                        $raffle->add($member);
                     }
                 }
+
             }
 
             return $raffle->showList();
