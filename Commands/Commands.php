@@ -18,7 +18,7 @@ class Commands{
 	 * @var [type]
 	 */
 	public $commands = [
-		// "Commands\\DemoCommand",		// demo
+		"Commands\\DemoCommand",		// demo
 		"Commands\\NewRaffle",			// create new raffle
 		"Commands\\AddToRaffle",		// add user to raffle
 		"Commands\\RemoveFromRaffle",	// remove user from raffle

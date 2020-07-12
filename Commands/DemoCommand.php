@@ -16,22 +16,13 @@ class DemoCommand extends BaseCommand{
 
 	public function command(){
 
- 		// return function($data, $params){
+ 		return function($data, $params){
 
-   //          // if author is not admin, eep!
-   //          if(!Helper::isAuthorAdmin($data)){
-   //              return "Not permitted to perform this command.";
-   //          }
+        echo "I'm alive.";
 
-   //          // get ids of any @members and names of any @roles
-   //          $ids = Helper::GetMemberIdsFromMessage($data);
+        return "hello world";
 
-   //          foreach($ids as $id){
-   //          	return "<".$id.">";
-   //          }
-   //          // ddd($ids);
-
-   //       };
+      };
 
 	}
 
