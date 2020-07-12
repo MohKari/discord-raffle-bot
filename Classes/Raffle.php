@@ -16,6 +16,20 @@ class Raffle{
 	public $data = [];
 
 	/**
+	 * is the list empty?
+	 * @return boolean [description]
+	 */
+	public function isEmpty(){
+
+		if(empty($this->data)){
+			return true;
+		}
+
+		return false;
+
+	}
+
+	/**
 	 * reset $data object
 	 */
 	public function clear(){

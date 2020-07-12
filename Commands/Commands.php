@@ -19,6 +19,7 @@ class Commands{
 	 */
 	public $commands = [
 		"Commands\\DemoCommand",		// demo
+		"Commands\\GroupBuddies",		// group up buddies
 		"Commands\\NewRaffle",			// create new raffle
 		"Commands\\AddToRaffle",		// add user to raffle
 		"Commands\\RemoveFromRaffle",	// remove user from raffle
