@@ -1,13 +1,18 @@
-# discord-raffle-bot
+# Discord-Raffle-Bot
 
-1. `cp .env.sample .env` to duplicate .env file and fill out.
+## Set-Up
 
-!new @role, any user that have matching @role are entered into a raffle
+Make a copy of the sample .env file...
+```cp .env.sample .env` to duplicate .env file and fill out.```
 
-!add @user, add or increase @user current raffle entries
+## New Command
 
-!remove @user, remove all entries for @user
+To add a new command, duplicate DemoCommand.php, and alter to need.
+You will also need to add new command to Commands::$commands
 
-!show, show current raffle and entries
+## Credits
 
-!draw, pick a winner, all of winners entries are removed
+This code takes heavy advantage of the work done in this repository.
+https://github.com/teamreflex/DiscordPHP
+
+- My Mom, for giving birth to me.

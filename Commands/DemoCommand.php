@@ -18,11 +18,11 @@ class DemoCommand extends BaseCommand{
 
  		return function($data, $params){
 
-        echo "I'm alive.";
+            echo "I'm alive.";
 
-        return "hello world";
+            return "hello world";
 
-      };
+          };
 
 	}
 
