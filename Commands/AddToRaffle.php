@@ -16,7 +16,7 @@ class AddToRaffle extends BaseCommand{
 
     public function command(){
 
-        return function($data, $params){
+        return function($data, $params, $lazy = false){
 
             // if author is not admin, eep!
             if(!Helper::isAuthorAdmin($data)){
@@ -40,6 +40,12 @@ class AddToRaffle extends BaseCommand{
             $count = end($params);
             if(!is_numeric($count)){
                 $count = 1;
+            }
+
+            // if lazy is true...
+            // this is a super hacky way for me to be lazy...
+            if($lazy == true){
+                $roles[] = "Raffle Donor";
             }
 
             /////////////////////////

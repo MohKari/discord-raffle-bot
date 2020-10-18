@@ -25,6 +25,7 @@ class Commands{
 		"Commands\\RemoveFromRaffle",	// remove user from raffle
 		"Commands\\ShowRaffle",			// show raffle
 		"Commands\\DrawFromRaffle",		// show raffle
+		"Commands\\LazyDraw",			// lazy raffle...
 	];
 
 	/**

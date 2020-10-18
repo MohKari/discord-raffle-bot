@@ -16,7 +16,7 @@ class NewRaffle extends BaseCommand{
 
     public function command(){
 
-        return function($data, $params){
+        return function($data, $params, $lazy = false){
 
             // if author is not admin, eep!
             if(!Helper::isAuthorAdmin($data)){
@@ -39,6 +39,11 @@ class NewRaffle extends BaseCommand{
             /////////////////////////////////////////////
             // ADD ALL USERS THAT MATCH ALL ROLES ONCE //
             /////////////////////////////////////////////
+
+            // super lazy hack for me to not have to do too many commands...
+            if($lazy == true){
+                $roles[] = "Raffle Donor";
+            }
 
             // amount of matches required to be added...
             $required_matches = count($roles);

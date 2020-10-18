@@ -16,7 +16,7 @@ class DrawFromRaffle extends BaseCommand{
 
     public function command(){
 
-        return function($data, $params){
+        return function($data, $params, $lazy = false){
 
             // standard draw dates
             $standard = ["Monday", "Tuesday", "Wednesday", "Friday"];
@@ -39,7 +39,6 @@ class DrawFromRaffle extends BaseCommand{
                 $use = $donor;
             }
 
-
             // hold the winners
             $winners = [];
 
@@ -59,6 +58,11 @@ class DrawFromRaffle extends BaseCommand{
                 // puts winners in array so we can print it nicer in a moment...
                 $winners[] = $use[$i] . " - @" . $winner;
 
+            }
+
+            // if super lazy mode... return winners
+            if($lazy == true){
+                return $winners;
             }
 
             $string = PHP_EOL . "Your winners are;" . PHP_EOL . implode(PHP_EOL, $winners);

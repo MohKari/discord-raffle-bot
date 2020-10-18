@@ -148,7 +148,8 @@ class Raffle{
 		ksort($data);
 
 		// output
-		$output = "Here is the list of current entries.";
+		$output = "In Raffle: " . count($this->data) . ", please run command a few times, if this number changes, I will be sad..." . PHP_EOL;
+		$output .= "Here is the list of current entries.";
 		$output .= "```";
 		foreach($data as $k => $v){
 			$output .= PHP_EOL . $k . '-' . $v;

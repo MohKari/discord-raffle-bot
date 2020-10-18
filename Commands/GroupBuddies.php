@@ -47,6 +47,7 @@ class GroupBuddies extends BaseCommand{
 
             // get raffle object
             $raffle = Helper::getRaffle();
+            $raffle->clear();
 
             // group into 2, 3's?
           	$group_size = end($params);
@@ -81,6 +82,9 @@ class GroupBuddies extends BaseCommand{
                 }
 
             }
+
+            // how many names in "Hat"
+            $size = count($raffle->data);
 
             ///////////////////////////
             // DRAW INTO GROUPS OF X //
@@ -126,21 +130,25 @@ class GroupBuddies extends BaseCommand{
             $count = 0;
 
             // output
-            $output = PHP_EOL;
+            $output = "In Raffle: " . $size . ", please run command a few times, if this number changes, I will be sad..." . PHP_EOL;
+            $output .= "```" . PHP_EOL;
 
             // break groups up so I can output string...
             foreach($groups as $group){
 
             	$count++;
-            	$output .= "- GROUP " . $count . " -" . PHP_EOL;
+            	$output .= "Team " . $count . PHP_EOL;
 
+                $team = [];
             	foreach($group as $name){
-            		$output .= $name . PHP_EOL;
+            		$team[] = $name;
             	}
 
-            	$output .= PHP_EOL;
+                $output .= implode($team, ", ") . PHP_EOL;
 
             }
+
+            $output .= "```";
 
             return $output;
 
