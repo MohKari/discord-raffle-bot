@@ -45,7 +45,7 @@ class AddToRaffle extends BaseCommand{
             // if lazy is true...
             // this is a super hacky way for me to be lazy...
             if($lazy == true){
-                $roles[] = "Raffle Donor";
+                // $roles[] = "Raffle Donor";
             }
 
             /////////////////////////

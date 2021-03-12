@@ -55,6 +55,11 @@ class Commands{
 				$class->options
 			);
 
+			// register all alias's
+			foreach($class->aliasis as $alias){
+				$this->discord->registerAlias($alias, $class->key_word);
+			}
+
 		}
 
 	}
