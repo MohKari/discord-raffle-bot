@@ -11,6 +11,13 @@ class BaseCommand{
 	public $key_word;
 
 	/**
+	 * Alias for commands
+	 * @var array
+	 */
+	public $aliasis = [];
+
+
+	/**
 	 * Any additional options
 	 * @var array
 	 */

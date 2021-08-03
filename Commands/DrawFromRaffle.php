@@ -10,8 +10,9 @@ class DrawFromRaffle extends BaseCommand{
     public $key_word = "draw";
 
     public $options = [
-        "description" => "Draw \"Standard\" or \"Donor\". A user may not win more than once.",
-        "usage" => "!draw s \\ !draw",
+        "description" => "Draw Mon-Sun winners ( exclude Thursday & Sunday ). A user may not win more than once.",
+        "usage" => "!draw",
+        // "usage" => "!draw s \\ !draw",
     ];
 
     public function command(){
@@ -19,8 +20,8 @@ class DrawFromRaffle extends BaseCommand{
         return function($data, $params, $lazy = false){
 
             // standard draw dates
-            $standard = ["Monday", "Tuesday", "Wednesday", "Friday"];
-            $donor = ["Saturday"];
+            $standard = ["Monday", "Tuesday", "Wednesday", "Friday", "Saturday"];
+            // $donor = ["Saturday"];
             $use;
 
             // if author is not admin, eep!
@@ -32,12 +33,12 @@ class DrawFromRaffle extends BaseCommand{
             $raffle = Helper::getRaffle();
 
             // how many draws?
-            $mode = end($params);
-            if($mode == "s"){
+            // $mode = end($params);
+            // if($mode == "s"){
                 $use = $standard;
-            }else{
-                $use = $donor;
-            }
+            // }else{
+            //     $use = $donor;
+            // }
 
             // hold the winners
             $winners = [];
@@ -52,11 +53,11 @@ class DrawFromRaffle extends BaseCommand{
                 if(is_string($member)){
                     $winner = $member;
                 }else{
-                    $winner = $member->name;
+                    $winner = $member->id;
                 }
 
                 // puts winners in array so we can print it nicer in a moment...
-                $winners[] = $use[$i] . " - @" . $winner;
+                $winners[] = $use[$i] . " <@" . $winner . ">";
 
             }
 
